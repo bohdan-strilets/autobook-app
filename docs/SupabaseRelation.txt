@@ -1,0 +1,37 @@
+users
+   │
+workspace_members
+   │
+workspaces
+   │
+cars
+   │
+timeline_events
+   ├── fuel_logs
+   ├── service_logs
+   └── documents
+   │
+   └── event_media
+           │
+           media
+           │
+           media_variants
+
+
+cars
+   ├── mileage_logs
+   ├── reminders
+   └── car_media
+           │
+           media
+
+
+timeline_events
+   └── stations
+
+
+AI
+ai_requests
+   │
+   ├── ai_responses
+   └── ai_usage

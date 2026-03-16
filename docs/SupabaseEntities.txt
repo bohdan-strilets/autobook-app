@@ -1,0 +1,349 @@
+1. High-Level Domains системи
+  - Identity
+  - Workspace
+  - Vehicle
+  - Events
+  - Media
+  - AI
+  - Analytics
+  
+================================================================================
+USER
+================================================================================
+
+users
+  id
+  email
+  first_name
+  last_name
+  avatar_media_id
+  status
+  locale
+  timezone
+  created_at
+  updated_at
+  
+================================================================================
+  
+workspaces
+workspace_members
+
+workspaces
+  id
+  name
+  type
+  owner_user_id
+  created_at
+
+workspace_members
+  id
+  workspace_id
+  user_id
+  role
+  created_at
+  
+================================================================================
+VEHICLE
+================================================================================
+
+cars
+  id
+  workspace_id
+  
+  brand
+  model
+  generation
+  year
+  
+  vin
+  plate_number
+  
+  fuel_type
+  transmission
+  drive_type
+  color
+  
+  purchase_date
+  purchase_price
+  purchase_mileage
+  
+  sale_date
+  sale_price
+  sale_mileage
+  
+  description
+  
+  created_at
+  updated_at
+  deleted_at
+  
+================================================================================
+
+timeline_events
+  id
+  car_id
+  created_by_user_id
+  service_station_id
+  
+  type
+  title
+  description
+  
+  event_date
+  mileage
+  
+  cost
+  currency
+  
+  created_at
+  updated_at
+  
+================================================================================
+  
+fuel_logs
+  id
+  timeline_event_id
+  
+  liters
+  price_per_liter
+  fuel_type
+  
+  station_name
+  station_address
+  
+  latitude
+  longitude
+  
+  notes
+  
+  created_at
+  
+================================================================================
+
+service_logs
+  id
+  timeline_event_id
+  
+  category
+  description
+  
+  created_at
+  
+================================================================================
+
+documents
+  id
+  timeline_event_id
+  
+  type
+  
+  issue_date
+  expire_date
+  
+  file_media_id
+  
+  notes
+  
+  created_at
+  
+================================================================================
+
+mileage_logs
+  id
+  car_id
+  timeline_event_id
+  
+  mileage
+  date
+  
+  source
+  
+  created_at
+  
+================================================================================
+
+reminders
+  id
+  car_id
+  
+  type
+  title
+  description
+  
+  due_date
+  due_mileage
+  
+  is_completed
+  completed_at
+  
+  created_at
+  updated_at
+  
+================================================================================
+
+stations
+  id
+  user_id
+  
+  name
+  type
+  
+  address
+  
+  latitude
+  longitude
+  
+  phone
+  website
+  
+  created_at
+  updated_at
+  
+================================================================================
+MEDIA
+================================================================================
+  
+media
+  id
+  owner_user_id
+  
+  type
+  mime_type
+  
+  original_name
+  storage_key
+  
+  size_bytes
+  
+  width
+  height
+  duration_seconds
+  
+  checksum
+  is_public
+  
+  created_at
+  
+================================================================================
+
+media_variants
+  id
+  media_id
+  
+  type
+  
+  storage_key
+  
+  width
+  height
+  size_bytes
+  
+  created_at
+  
+================================================================================
+
+car_media
+  id
+  car_id
+  media_id
+  position
+  created_at
+  
+================================================================================
+
+event_media
+  id
+  timeline_event_id
+  media_id
+  created_at
+  
+================================================================================
+AI
+================================================================================
+
+ai_requests
+  id
+  user_id
+  workspace_id
+  car_id
+  
+  provider
+  model
+  
+  task_type
+  
+  prompt
+  input_data
+  
+  media_id
+  
+  parameters
+  
+  status
+  
+  retry_count
+  max_retries
+  
+  error_message
+  
+  latency_ms
+  
+  created_at
+  finished_at
+  
+================================================================================
+
+ai_responses
+  id
+  request_id
+  
+  output_text
+  output_json
+  
+  confidence
+  
+  raw_response
+  
+  created_at
+  
+================================================================================
+  
+ai_usage
+  id
+  request_id
+  
+  provider
+  model
+  
+  prompt_tokens
+  completion_tokens
+  total_tokens
+  
+  cost_usd
+  
+  created_at
+  
+================================================================================
+Analytics
+================================================================================
+
+materialized views
+car_stats
+  car_id
+  
+  current_mileage
+  
+  total_distance_km
+  
+  total_fuel_liters
+  total_fuel_cost
+  
+  total_service_cost
+  total_document_cost
+  
+  total_cost
+  
+  average_fuel_consumption
+  cost_per_km
+  
+  last_updated_at

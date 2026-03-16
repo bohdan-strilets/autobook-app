@@ -1,0 +1,175 @@
+================================================================================
+1. Mobile (Frontend)
+================================================================================
+
+  React Native + Expo
+  Core stack:
+    - React Native (Expo SDK)
+    - TypeScript
+    - Expo Router
+    - React Query (TanStack Query)
+    - Zustand
+    - React Hook Form + Zod
+    - NativeWind / Tailwind
+    - Reanimated
+    - Expo Image
+    - Victory / Recharts для графіків
+    
+  UI
+    - Tamagui або
+    - NativeWind + headless компоненти
+  
+  Notifications
+    - Expo Notifications
+    
+================================================================================
+2. Backend
+================================================================================
+
+  Supabase
+  Це ключова технологія проекту.
+  Вона дає одразу:
+    - PostgreSQL
+    - Auth
+    - Storage
+    - Edge Functions
+    - Realtime
+    - RLS security
+    
+  Використовуємо:
+    - Database  ->	PostgreSQL
+    - Auth      ->	Supabase Auth
+    - Storage   ->	Supabase Storage
+    - Functions ->	Supabase Edge Functions
+    - Security  ->	Row Level Security
+  
+================================================================================
+3. AI Layer
+================================================================================
+
+  Provider OpenAI або Anthropic
+  Для MVP:
+    - OpenAI GPT-4o mini або
+    - Claude Haiku
+  
+================================================================================
+4. Notifications
+================================================================================
+
+  Mobile
+  Expo Notifications
+  Push для:
+    - OC reminder
+    - TÜV reminder
+    - service reminder
+  
+  Email
+  Resend для:
+    - backup notification
+    - password reset
+    - reminder
+  
+================================================================================
+5. Payments
+================================================================================
+
+  RevenueCat
+  Він вирішує:
+    - Apple IAP
+    - Google Play Billing
+    - subscription sync
+
+================================================================================
+6. Analytics
+================================================================================
+
+  Product analytics
+  PostHog
+  для:
+    - feature usage
+    - retention
+    - funnel
+  
+  Errors
+  Sentry
+  для:
+    - crash tracking
+    - stack traces
+  
+================================================================================
+7. AI Queue (важливо)
+================================================================================
+
+  Щоб не блокувати UI.
+  pattern
+  
+    client → ai_requests
+              ↓
+    Edge Function worker
+              ↓
+    LLM API
+              ↓
+    ai_responses
+
+================================================================================
+8. Media
+================================================================================
+
+  Supabase Storage
+  для:
+    - фото авто
+    - фото чеків
+    - скани документів
+  
+  Структура:
+    - media
+    - media_variants
+    - car_media
+    - event_media
+  
+================================================================================
+9. Testing
+================================================================================
+
+  MVP:
+    - Jest
+    - React Native Testing Library
+    - Playwright (E2E optional)
+  
+================================================================================
+10. CI/CD
+================================================================================
+  
+  GitHub
+  ↓
+  Expo EAS
+  ↓
+  TestFlight / Google Play Beta
+  
+  OTA updates через Expo.
+  
+================================================================================
+Повна архітектура
+================================================================================
+
+  Mobile (React Native + Expo)
+          │
+          │ REST / RPC
+          ▼
+  Supabase
+   ├─ Auth
+   ├─ PostgreSQL
+   ├─ Storage
+   ├─ Edge Functions
+   │
+   └─ AI Worker
+          │
+          ▼
+  LLM API
+  (OpenAI / Anthropic)
+  
+  External services
+   ├─ RevenueCat
+   ├─ Resend
+   ├─ PostHog
+   └─ Sentry

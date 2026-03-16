@@ -1,0 +1,89 @@
+Ціль MVP:
+  50 активних користувачів.
+  Перевірити що люди систематично ведуть timeline і повертаються.
+  Workspaces, media, AI — базовий рівень.
+
+================================================================================
+  
+В MVP (Must Have)
+  - Auth + users
+  - workspaces
+  - cars
+  - timeline_events
+  - fuel_logs
+  - service_logs
+  - documents
+  - mileage_logs
+  - reminders
+  - media (basic)
+  - car_media
+  - subscriptions
+  - user_settings
+  - AI (basic RAG)
+  - car_stats (matview)
+
+================================================================================
+
+Workspace + cars
+  - Реєстрація створює workspace.
+  - Free: 1 workspace / 1 авто. PRO: без ліміту.
+  - Поля cars: brand, model, generation, year, vin, plate, fuel_type, transmission, drive_type, color.
+
+Timeline events
+  - 8 типів: FUEL, SERVICE, DOCUMENT, EXPENSE, TIRE_CHANGE, TRIP, PURCHASE, SALE.
+  - Кожна подія має event_date + mileage → синхронізується у mileage_logs.
+
+Sub-logs
+  - fuel_logs: liters, price_per_liter, GPS станції.
+  - service_logs: category (MAINTENANCE / REPAIR / CARE / ACCESSORIES / OTHER). - documents: issue_date, expire_date, file scan.
+
+Reminders
+  - Подвійний тригер: due_date і due_mileage. Push + email.
+  - Авто-нагадування OC/TÜV 30/14/7 днів. is_completed + completed_at.
+
+Media (базовий)
+  - media + car_media + event_media. Фото авто і фото до подій (чек, скан).
+  - Free: 1 фото/подія. PRO: 3. media_variants — thumbs on upload.
+
+AI-асистент
+  - RAG на car_stats (matview) + останні 50 timeline_events.
+  - Провайдер через ai_requests / ai_responses / ai_usage.
+  - Free: 10 запитів/міс. PRO: без ліміту.
+  
+car_stats (matview)
+  - Агрегує: current_mileage, total_fuel_cost, total_service_cost, total_cost, average_fuel_consumption, cost_per_km.
+  - Оновлюється при кожному новому timeline_event.
+  
+Freemium / subscriptions
+  - subscriptions: plan FREE|PRO, provider APPLE|GOOGLE|MANUAL.
+  - RevenueCat як IAP-шар. 14-денний trial PRO.
+  - user_settings: currency, distance_unit, fuel_unit, theme, language.
+
+================================================================================
+
+Поза MVP (V2 / V3+)
+  - stations (UI)
+  - media_variants (advanced)
+  - AI фото-діагностика
+  - workspace_members (sharing)
+  - Trip tracking
+  - B2B для сервісів
+  - OBD2 інтеграція
+  - Export PDF
+  - Social sharing
+  - Analytics dashboard
+  
+================================================================================
+  
+Технічний стек (рекомендований)
+  Frontend / Mobile
+    React Native (Expo) — один кодбейс для iOS + Android. Швидкий старт, великий ринок розробників.
+  
+  Backend
+    Node.js + Supabase (PostgreSQL + Auth + Storage). Дозволяє solo/small team запуститися дуже швидко.
+  
+  AI шар
+    Claude API або OpenAI. RAG на журналі користувача. Старт: GPT-4o mini / Claude Haiku для зниження costs.
+  
+  Push / нагадування
+    Expo Notifications (мобіль) + Resend (email). Нагадування про документи — killer feature для retention.

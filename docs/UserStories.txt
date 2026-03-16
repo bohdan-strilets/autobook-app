@@ -1,0 +1,115 @@
+E1 - Workspace + профіль авто (cars)
+  US-01 Must have
+    Як новий користувач хочу зареєструватись через Google/email і автоматично отримати workspace, щоб одразу додати авто.
+    users + workspaces + workspace_members
+  
+  US-02 Must have
+    Як власник хочу додати авто з полями brand, model, generation, year, vin, plate_number, fuel_type, transmission, drive_type, щоб мати повний профіль.
+    cars (workspace_id FK)
+  
+  US-03 Must have
+    Як власник хочу додати фото авто, щоб бачити його на головному екрані.
+    car_media + media
+  
+  US-04 Should have
+    Як PRO-користувач хочу мати кілька авто в одному workspace, щоб вести журнали кожного окремо.
+    cars (без ліміту при PRO)
+    
+================================================================================
+    
+E2 - TimelineEvents (серцевина)
+  US-05 Must have
+    Як водій хочу додати заправку (FUEL) із зазначенням літрів, ціни за літр і GPS, щоб відслідковувати паливні витрати.
+    timeline_events type=FUEL + fuel_logs
+  
+  US-06 Must have
+    Як власник хочу додати сервісну подію (SERVICE) з категорією MAINTENANCE/REPAIR/CARE і описом, щоб знати повну сервісну історію.
+    timeline_events type=SERVICE + service_logs
+  
+  US-07 Must have
+    Як власник хочу додати документ (DOCUMENT) з датою закінчення та скан-файлом, щоб зберігати OC/TÜV в одному місці.
+    timeline_events type=DOCUMENT + documents + media
+  
+  US-08 Must have
+    Як власник хочу додати витрату (EXPENSE) і зміну шин (TIRE_CHANGE), щоб мати повну картину всіх трат.
+    timeline_events type=EXPENSE/TIRE_CHANGE
+  
+  US-09 Must have
+    Як власник хочу бачити хронологічний timeline всіх подій з фільтром по типу та датах, щоб швидко знайти потрібний запис.
+    timeline_events ORDER BY event_date DESC
+  
+  US-10 Should have
+    Як власник хочу прикріпити фото чека/деталі до події, щоб мати документальне підтвердження.
+    event_media + media
+    
+================================================================================
+    
+E3 - Mileage tracking
+  US-11 Must have
+    Як власник хочу щоб кожна подія автоматично оновлювала поточний пробіг авто, щоб завжди бачити актуальний стан.
+    mileage_logs (auto-insert при timeline_event)
+  
+  US-12 Should have
+    Як власник хочу бачити графік зростання пробігу в часі, щоб оцінити інтенсивність використання авто.
+    mileage_logs + car_stats.current_mileage
+    
+================================================================================
+    
+E4 - Reminders (нагадування)
+  US-13 Must have
+    Як власник хочу отримати push-нагадування за 30/14/7 днів до закінчення OC, щоб не отримати штраф.
+    reminders (due_date) + Edge Function cron
+  
+  US-14 Must have
+    Як власник хочу встановити нагадування по пробігу (due_mileage), щоб знати коли міняти масло незалежно від дати.
+    reminders (due_mileage) — тригер при mileage_logs insert
+  
+  US-15 Must have
+    Як власник хочу позначити нагадування як виконане (is_completed), щоб прибрати його з активних.
+    reminders.is_completed + completed_at
+    
+================================================================================
+
+E5 - Статистика (car_stats)
+  US-16 Must have
+    Як власник хочу бачити загальні витрати на авто (total_cost) і вартість км (cost_per_km), щоб розуміти реальну вартість автомобіля.
+    car_stats materialized view
+  
+  US-17 Should have
+    Як власник хочу бачити середнє споживання палива (average_fuel_consumption) за вибраний період, щоб оцінити стан авто.
+    car_stats.average_fuel_consumption
+  
+  US-18 Should have
+    Як власник хочу бачити розбивку витрат по категоріях (паливо / сервіс / документи / інше) у вигляді графіку.
+    car_stats: total_fuel_cost, total_service_cost, total_document_cost
+    
+================================================================================
+    
+E6 - AI асистент
+  US-19 Must have
+    Як власник хочу запитати 'Коли я востаннє міняв масло?' і отримати відповідь з датою та пробігом з мого журналу.
+    ai_requests + RAG на timeline_events type=SERVICE
+  
+  US-20 Must have
+    Як власник хочу запитати 'Скільки витратив на паливо цього року?' і отримати точну суму.
+    ai_requests + car_stats.total_fuel_cost
+  
+  US-21 Must have
+    Як Free-користувач хочу бачити лічильник AI-запитів (залишилось X з 10), щоб знати свій ліміт.
+    ai_usage COUNT per month per user_id
+  
+  US-22 Should have
+    Як власник хочу отримати проактивну підказку від AI 'Минуло 15 000 км від заміни масла — час до сервісу'.
+    ai_requests task_type=RECOMMENDATION + reminders auto-create
+    
+================================================================================
+
+E7 - Freemium/підписка
+
+  US-23 Must have
+    Як Free-користувач хочу бачити чіткий paywall після досягнення ліміту, щоб зрозуміти що дає PRO.
+    subscriptions.plan check + RevenueCat IAP
+  
+  US-24 Should have
+    Як PRO-користувач хочу керувати підпискою (пауза, скасування) прямо в додатку.
+    subscriptions + RevenueCat webhook → status update

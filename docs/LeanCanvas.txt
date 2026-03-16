@@ -1,0 +1,64 @@
+Проблема:
+  - Власники не пам'ятають сервісну історію авто
+  - Документи (OC, TÜV) прострочуються — штраф до 5 000 zł
+  - Немає структурованої аналітики витрат
+  - Generyczne apki — brak lokalizacji PL
+  - Пробіг не відслідковується систематично
+  
+Рішення:
+  - Timeline авто: кожна подія прив'язана до дати + пробігу
+  - 8 типів подій: FUEL, SERVICE, DOCUMENT, EXPENSE, TIRE_CHANGE, TRIP, PURCHASE, SALE
+  - Нагадування по даті і пробігу (due_date + due_mileage)
+  - AI-асистент на базі car_stats та timeline
+  - Workspaces — підтримка кількох авто та спільного доступу
+  
+Унікальна цінність:
+  - "Повна пам'ять твого авто — завжди під рукою"
+  - Глибока локалізація під PL (OC, AC, Przegląd techniczny)
+  - Structured timeline з sub-logs (fuel_logs, service_logs, documents)
+  - AI на реальних даних: car_stats + timeline_events
+  
+Приховані витрати:
+  - AI API (Anthropic) ~40% опер. витрат
+  - Supabase (DB + Storage + Edge Functions)
+  - Media storage + CDN (media_variants)
+  - Розробка і підтримка
+  - RODO / legal PL
+  
+Ключові метрики:
+  - 50 активних юзерів (MVP target)
+  - Записів timeline_events / user / міс > 4
+  - D30 Retention > 35%
+  - % юзерів з активним reminder > 60%
+  - Конверсія Free → PRO > 5%
+  
+Канали:
+  - App Store / Google Play (органіка)
+  - Польські Facebook-групи автомобілістів
+  - SEO: "dziennik samochodu", "koszty auta PL"
+  - TikTok / YouTube — авто-контент
+  - Партнерство з автосервісами (stations)
+  
+Сегменти клієнтів:
+  - Власник 1–2 авто, 25–45 років (основний)
+  - Ентузіасти (детейлінг, тюнінг) — детальні service_logs
+  - Сім'я / мікро-бізнес — workspaces + кілька авто
+  - Майбутнє: автосервіси — B2B через stations
+  
+Несправедлива перевага:
+  - Локалізація PL як moat
+  - Workspace-модель для сімей і бізнесу
+  - AI + car_stats matview
+  - Stations network ефект
+  
+Потоки доходу:
+  - Free: 1 workspace, 1 авто, 10 AI/міс
+  - PRO: 9,99 zł/міс — необм. авто + AI
+  - PRO yearly: 89 zł/рік
+  - B2B stations (V3+)
+  
+Структура витрат:
+  - AI API: ~40%
+  - Supabase + media: ~20%
+  - Розробка: ~30%
+  - Маркетинг: ~10%
