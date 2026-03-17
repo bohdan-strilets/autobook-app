@@ -41,14 +41,7 @@ export default [
 
       '@typescript-eslint/no-unused-vars': 'warn',
 
-      'import/order': [
-        'warn',
-        {
-          groups: ['builtin', 'external', 'internal'],
-          'newlines-between': 'always',
-          alphabetize: { order: 'asc', caseInsensitive: true },
-        },
-      ],
+      'import/order': 'off',
 
       'no-console': 'warn',
     },
