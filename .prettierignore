@@ -1,0 +1,22 @@
+# Dependencies and build
+node_modules
+**/node_modules
+.pnpm-store
+.turbo
+dist
+build
+coverage
+.expo
+web-build
+
+# Lock files and generated
+pnpm-lock.yaml
+package-lock.json
+*.tsbuildinfo
+
+# Assets and binaries
+*.png
+*.jpg
+*.jpeg
+*.ico
+*.pdf

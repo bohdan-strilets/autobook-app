@@ -1,0 +1,63 @@
+# Dependencies
+**/node_modules
+.pnpm-store
+
+
+# Env
+.env
+.env.*
+!.env.example
+
+
+# Expo / React Native
+.expo
+.expo-shared
+dist
+web-build
+expo-env.d.ts
+
+
+# Native
+.kotlin
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+
+# Metro
+.metro-health-check*
+
+
+# Build / cache
+dist
+build
+coverage
+*.tsbuildinfo
+.turbo
+
+
+# Logs
+*.log
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+
+# OS
+.DS_Store
+
+
+# IDE
+.vscode/*
+!.vscode/settings.json
+
+
+# Generated native folders
+/ios
+/android
+
+# Cursor
+.cursor/*
